@@ -3,11 +3,11 @@ import { Direction } from './enums';
 import fs from 'fs';
 
 export const COMMANDS = {
-    PLACE: 'PLACE',
-    MOVE: 'MOVE',
-    LEFT: 'LEFT',
-    RIGHT: 'RIGHT',
-    REPORT: 'REPORT',
+  PLACE: 'PLACE',
+  MOVE: 'MOVE',
+  LEFT: 'LEFT',
+  RIGHT: 'RIGHT',
+  REPORT: 'REPORT',
 };
 
 /**
@@ -24,22 +24,34 @@ export const COMMANDS = {
  * @returns true if the command string is valid, false otherwise.
  */
 export function isValidPlaceCommand(args: string): boolean {
-    const parts = args.split(',');
-    if (parts.length !== 3) return false;
+  const parts = args.split(',');
+  if (parts.length !== 3) return false;
 
-    const x = Number(parts[0]);
-    const y = Number(parts[1]);
+  const x = Number(parts[0]);
+  const y = Number(parts[1]);
 
-    // If either part is not a number, or if they are not integers, or if they are not within the grid size of the Robot, the command string is invalid
-    if (isNaN(x) || isNaN(y) || !Number.isInteger(x) || !Number.isInteger(y) || x < 0 || x >= Robot.gridSize || y < 0 || y >= Robot.gridSize) return false;
+  // If either part is not a number, or if they are not integers, or if they are not within the grid size of the Robot, the command string is invalid
+  if (
+    isNaN(x) ||
+    isNaN(y) ||
+    !Number.isInteger(x) ||
+    !Number.isInteger(y) ||
+    x < 0 ||
+    x >= Robot.gridSize ||
+    y < 0 ||
+    y >= Robot.gridSize
+  )
+    return false;
 
-    // The third part of the command string must be a valid direction in the Direction enum
-    const f = parts[2].toUpperCase().trim();
-    const validDirections = Object.keys(Direction).filter(k => isNaN(Number(k)));
+  // The third part of the command string must be a valid direction in the Direction enum
+  const f = parts[2].toUpperCase().trim();
+  const validDirections = Object.keys(Direction).filter((k) =>
+    isNaN(Number(k)),
+  );
 
-    if (!validDirections.includes(f)) return false;
+  if (!validDirections.includes(f)) return false;
 
-    return true;
+  return true;
 }
 
 /**
@@ -48,11 +60,13 @@ export function isValidPlaceCommand(args: string): boolean {
  * @param direction - The string to convert to a Direction enum value.
  * @returns The Direction enum value that corresponds to the provided string.
  */
-export function getDirection(direction: string | null | undefined): Direction | undefined {
-    if (!direction) return undefined;
-    if (!isNaN(Number(direction))) return undefined;
+export function getDirection(
+  direction: string | null | undefined,
+): Direction | undefined {
+  if (!direction) return undefined;
+  if (!isNaN(Number(direction))) return undefined;
 
-    return (Direction as any)[direction.toUpperCase()];
+  return (Direction as never)[direction.toUpperCase()];
 }
 
 /**
@@ -60,13 +74,13 @@ export function getDirection(direction: string | null | undefined): Direction | 
  * @param fileName
  */
 export async function readFile(fileName: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-        fs.readFile(fileName, 'utf8', (err, data) => {
-            if (err) {
-                reject(`Error reading file ${fileName}: ${err}`);
-            } else {
-                resolve(data);
-            }
-        });
+  return new Promise((resolve, reject) => {
+    fs.readFile(fileName, 'utf8', (err, data) => {
+      if (err) {
+        reject(`Error reading file ${fileName}: ${err}`);
+      } else {
+        resolve(data);
+      }
     });
+  });
 }

@@ -14,64 +14,63 @@ import { Direction } from './enums';
  * 0,0  1,0  2,0  3,0  4,0
  */
 export class Robot {
-    x: number = -1;
-    y: number = -1;
-    f: Direction = Direction.EAST;
-    static gridSize: number = 5;
+  x: number = -1;
+  y: number = -1;
+  f: Direction = Direction.EAST;
+  static gridSize: number = 5;
 
+  place(x: number, y: number, f: Direction): void {
+    if (!this.validPosition(x, y)) return;
 
-    place(x: number, y: number, f: Direction): void {
-        if (!this.validPosition(x, y)) return;
+    this.x = x;
+    this.y = y;
+    this.f = f;
+  }
 
-        this.x = x;
-        this.y = y;
-        this.f = f;
+  move(): void {
+    let newX: number = this.x;
+    let newY: number = this.y;
+
+    switch (this.f) {
+      case Direction.NORTH:
+        newY += 1;
+        break;
+      case Direction.SOUTH:
+        newY -= 1;
+        break;
+      case Direction.EAST:
+        newX += 1;
+        break;
+      case Direction.WEST:
+        newX -= 1;
+        break;
     }
 
-    move(): void {
-        let newX: number = this.x;
-        let newY: number = this.y;
+    if (!this.validPosition(newX, newY)) return;
 
-        switch (this.f) {
-            case Direction.NORTH:
-                newY += 1;
-                break;
-            case Direction.SOUTH:
-                newY -= 1;
-                break;
-            case Direction.EAST:
-                newX += 1;
-                break;
-            case Direction.WEST:
-                newX -= 1;
-                break;
-        }
+    this.x = newX;
+    this.y = newY;
+  }
 
-        if (!this.validPosition(newX, newY)) return;
+  rotateLeft(): void {
+    this.f = (this.f + 3) % 4;
+  }
 
-        this.x = newX;
-        this.y = newY;
-    }
+  rotateRight(): void {
+    this.f = (this.f + 1) % 4;
+  }
 
-    rotateLeft(): void {
-        this.f = (this.f + 3) % 4;
-    }
+  report(): void {
+    if (!this.isPlaced()) return;
 
-    rotateRight(): void {
-        this.f = (this.f + 1) % 4;
-    }
+    console.log(`${this.x},${this.y},${Direction[this.f]}`);
+  }
 
-    report(): void {
-        if (!this.isPlaced()) return;
+  isPlaced(): boolean {
+    return this.x !== -1 && this.y !== -1;
+  }
 
-        console.log(`${this.x},${this.y},${Direction[this.f]}`);
-    }
-
-    isPlaced(): boolean {
-        return this.x !== -1 && this.y !== -1;
-    }
-
-    private validPosition(x: number, y: number): boolean {
-        return x >= 0 && x < Robot.gridSize && y >= 0 && y < Robot.gridSize;
-    }
+  private validPosition(x: number, y: number): boolean {
+    return x >= 0 && x < Robot.gridSize && y >= 0 && y < Robot.gridSize;
+  }
 }
