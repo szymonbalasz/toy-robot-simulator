@@ -131,3 +131,6 @@ dist
 
 # IDEs and editors
 /.idea
+
+# Mutations
+reports/mutation/
