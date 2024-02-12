@@ -64,6 +64,7 @@ npx ts-node src/index.ts
 ```
 
 ### Docker
+
 To run in docker, use docker compose then exec into the container
 
 ```bash
