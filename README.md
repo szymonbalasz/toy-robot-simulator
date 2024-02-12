@@ -61,6 +61,17 @@ To run the application on Windows and have it exit as expected, use the followin
 npx ts-node src/index.ts
 ```
 
+### Docker
+To run in docker, use docker compose then exec into the container
+
+```bash
+docker-compose up -d
+docker exec -it toy-robot-simulator-app bash
+npm start
+```
+
+After exiting: `docker-compose down`
+
 ## Tests
 
 ### Unit tests

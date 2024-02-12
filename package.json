@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "cross-env nodemon --exec \"ts-node -r wtfnode\" src/index.ts",
+    "start": "nodemon --exec ts-node src/index.ts",
+    "start-win": "cross-env nodemon --exec \"ts-node -r wtfnode\" src/index.ts",
     "build": "tsc",
     "lint": "eslint . --fix",
     "format": "prettier --write ."

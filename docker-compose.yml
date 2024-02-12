@@ -1,0 +1,12 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: toy-robot-simulator-app
+    command: npm start
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - NODE_ENV=development
