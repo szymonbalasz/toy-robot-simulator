@@ -66,47 +66,39 @@ describe('Robot', () => {
     });
   });
 
-  describe('Robot', () => {
-    let robot: Robot;
+  describe('rotateLeft', () => {
+    it('should rotate the robot 90 degrees to the left', () => {
+      robot.place(1, 1, Direction.NORTH);
+      robot.rotateLeft();
+      expect(robot.f).toEqual(Direction.WEST);
+    });
+  });
 
-    beforeEach(() => {
-      robot = new Robot();
+  describe('rotateRight', () => {
+    it('should rotate the robot 90 degrees to the right', () => {
+      robot.place(1, 1, Direction.NORTH);
+      robot.rotateRight();
+      expect(robot.f).toEqual(Direction.EAST);
+    });
+  });
+
+  describe('report', () => {
+    it('should report the current position and direction of the robot', () => {
+      robot.place(1, 1, Direction.NORTH);
+      const consoleSpy = jest.spyOn(console, 'log');
+      robot.report();
+      expect(consoleSpy).toHaveBeenCalledWith('1,1,NORTH');
+    });
+  });
+
+  describe('isPlaced', () => {
+    it('should return true if the robot is placed on the grid', () => {
+      robot.place(1, 1, Direction.NORTH);
+      expect(robot.isPlaced()).toEqual(true);
     });
 
-    describe('rotateLeft', () => {
-      it('should rotate the robot 90 degrees to the left', () => {
-        robot.place(1, 1, Direction.NORTH);
-        robot.rotateLeft();
-        expect(robot.f).toEqual(Direction.WEST);
-      });
-    });
-
-    describe('rotateRight', () => {
-      it('should rotate the robot 90 degrees to the right', () => {
-        robot.place(1, 1, Direction.NORTH);
-        robot.rotateRight();
-        expect(robot.f).toEqual(Direction.EAST);
-      });
-    });
-
-    describe('report', () => {
-      it('should report the current position and direction of the robot', () => {
-        robot.place(1, 1, Direction.NORTH);
-        const consoleSpy = jest.spyOn(console, 'log');
-        robot.report();
-        expect(consoleSpy).toHaveBeenCalledWith('1,1,NORTH');
-      });
-    });
-
-    describe('isPlaced', () => {
-      it('should return true if the robot is placed on the grid', () => {
-        robot.place(1, 1, Direction.NORTH);
-        expect(robot.isPlaced()).toEqual(true);
-      });
-
-      it('should return false if the robot is not placed on the grid', () => {
-        expect(robot.isPlaced()).toEqual(false);
-      });
+    it('should return false if the robot is not placed on the grid', () => {
+      expect(robot.isPlaced()).toEqual(false);
     });
   });
 
