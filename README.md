@@ -6,6 +6,8 @@ This is a Toy Robot Simulator project written in TypeScript for the MrYum techni
 
 Fun exercise, was nice to brush up on TS testing, especially for mutation testing. Appreciate the opportunity to work on this.
 
+There are still some mutants that need killing, but I think it's good enough for now.
+
 ## Prerequisites
 
 - Node.js
